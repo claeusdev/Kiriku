@@ -1,0 +1,40 @@
+@import '../../../vars.scss';
+
+.QuestionRevealInputForm {
+  .head-section {
+  }
+  .body-section {
+    // min-height: 125px;
+    min-height: 125px;
+    display: flex;
+    flex-wrap: wrap;
+    .reveal-image {
+      border: 1px solid #dfdfdf;
+      flex-basis: 30%;
+      max-width: 30%;
+      .preview-area {
+        border-width: 0;
+        text-align: center;
+      }
+      .picker-button {
+        margin-top: 5px;
+        margin-bottom: 0;
+      }
+    }
+    .reveal-text {
+      flex-basis: 70%;
+      max-width: 70%;
+      .TextInput input {
+        margin-bottom: 0;
+        border-left-width: 0;
+        border-bottom-width: 0;
+        border-radius: 0;
+      }
+      .Textarea textarea {
+        border-left-width: 0;
+        border-radius: 0;
+        resize: none;
+      }
+    }
+  }
+}

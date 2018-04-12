@@ -1,0 +1,50 @@
+@import '../../../vars.scss';
+
+.FilePicker.SingleFilePicker {
+  .preview-area {
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+    .preview-image {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+  .picker-button {
+    margin-top: 15px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid $primary-color;
+    border-radius: .5em;
+    padding: .5em;
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    font-weight: normal;
+    color: #fff;
+    color: $primary-color;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .picker-button [type=file] {
+    cursor: inherit;
+    display: block;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+  }
+  .picker-button.disabled {
+    border-color: #dfdfdf;
+    color: #dfdfdf;
+  }
+}
+

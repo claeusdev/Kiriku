@@ -1,0 +1,172 @@
+@import '../../../../../vars.scss';
+
+.DashboardQuizzesCreate.dashboard-page {
+  .header {
+    .button.primary-action {
+      .icon {
+        font-size: 16px;
+        margin-right: 5px;
+        position: relative;
+        bottom: 1px;
+      }
+    }
+    .back-to-quizzes {
+      margin-right: 10px;
+      svg {
+        color: $primary-color;
+      }
+    }
+  }
+  .affix-example {
+    height: 500px;
+  }
+
+  .inner {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .inner::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .floating-right-panel {
+    float: left;
+    width: 28%;
+    height: 450px;
+    position: sticky;
+    top: 120px;
+    .save-as-draft-button {
+      margin-bottom:  25px;
+    }
+    .head-section {
+      border-bottom: 1px solid #dfdfdf;
+      margin-bottom: 20px;
+      .heading {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .form-errors {
+    border: 1px solid #f00;
+    .header {
+      padding: 15px;
+      color: #fff;
+      background-color: red;
+      .heading {
+        margin: 0;
+      }
+    }
+    .body {
+      color: #f00;
+      padding: 15px;
+      .errors-list {
+        // list-style-type: none;
+        list-style-type: square;
+        margin: 0;
+        padding: 0 0 0 15px;
+      }
+    }
+  }
+
+  form {
+    width: 60%;
+    float: left;
+    .form-group.quiz-thumbnail-image {
+      .picker-area {
+        border: 1px solid #dfdfdf;
+        border-radius: 4px;
+        height: 250px;
+      }
+    }
+    .quiz-content {
+      border: 1px solid #000;
+      border-color: #dfdfdf;
+      .quiz-content-header {
+        padding: 10px 20px;
+      }
+      .quiz-content-body {
+        padding: 0 20px 30px 20px;
+        .QuestionInputForms {
+          .add-question-button {
+          }
+          .QuestionWithAnswerInputsForm {
+            margin-left: -20px;
+            margin-right: -20px;
+          }
+        }
+        .QuestionWithAnswerInputsForm {
+          .question-header {
+            background-color: black;
+            color: #fff;
+            padding: 10px 20px;
+            .question-heading {
+              margin: 0;
+            }
+            .delete-question-icon {
+              font-size: 23px;
+              margin-left: 5px;
+              cursor: pointer;
+            }
+          }
+          .question-body {
+            padding: 20px;
+            .QuestionTextInputForm {
+              label {
+                font-size: 17px;
+              }
+              .TextInput input {
+                margin-bottom: 15px;
+              }
+
+              .question-preview {
+                color: #fff;
+                border: 1px solid #dfdfdf;
+                border-radius: 4px;
+                height: 200px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+      .quiz-content-footer {
+        padding: 0 20px 30px 20px;
+        border: 1px solid #dfdfdf;
+      }
+    }
+
+    .quiz-footer {
+      border: 1px solid #dfdfdf;
+      .quiz-footer-header {
+        padding: 20px;
+        border-bottom: 1px solid #dfdfdf;
+        .text {
+          margin: 0;
+        }
+      }
+      .quiz-footer-body {
+        .messages {
+          .messages-header {
+            background-color: black;
+            color: #fff;
+            padding: 10px 20px;
+            .text {
+              margin: 0;
+            }
+          }
+          .messages-body {
+            padding: 20px;
+          }
+        }
+        // padding: 20px;
+      }
+    } 
+  }
+}

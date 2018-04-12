@@ -1,0 +1,139 @@
+@import 'vars.scss';
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body, #root, #App {
+  height: 100%;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: #f9f9f9;
+  opacity: 1;
+}
+
+#App {
+  a.button,
+  button {
+    border-width: 1px;
+    border-color: transparent;
+    padding: 05px 15px;
+    border-radius: 5px;
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    .icon {
+      position: relative;
+      bottom: 1px;
+      margin-right: 4px;
+    }
+  }
+  a.button.block,
+  button.block {
+    width: 100%;
+  }
+
+  a.button.hollow,
+  button.hollow {
+    background-color: transparent !important;
+    border-width: 1px;
+  }
+  a.button.primary.hollow,
+  button.primary.hollow {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+
+  a.button.primary.solid,
+  button.primary.solid {
+    border-color: $primary-color;
+    background: $primary-color;
+    color: #fff;
+  }
+
+  a.button.destructive.solid,
+  button.destructive.solid {
+    border-color: #d62c0b;
+    background: #d62c0b;
+    color: #fff;
+  }
+
+  a.button.primary:hover,
+  button.primary:hover {
+    text-decoration: none; // for links
+    background: $primary-color-hovered;
+  }
+}
+
+.page-overlay.hijack {
+  background-color:#EFEFEF;
+  background-color:#FFF;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  opacity: .8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .content {
+    // background-color: #fff;
+  }
+}
+
+
+/**
+ * Block Link
+ *
+ * A Faux block-level link. Used for when you need a block-level link with
+ * clickable areas within it as directly nesting a tags breaks things.
+ */
+
+
+.block-link {
+    position: relative;
+}
+
+// If this block-link has child block-links then steal the positioning context
+// from them so that their block-link covers the entire page
+.block-link--steal {
+    .block-link {
+        position: static;
+    }
+}
+
+// Links within the block that we want to sit on top of the overlay link
+.block-link a,
+.block-link abbr[title],
+.block-link__link {
+    position: relative;
+    z-index: 1;
+}
+
+.block-link__overlay-link {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    text-indent: 200%;
+    white-space: nowrap;
+    background: rgba(0, 0, 0, 0); // IE9 fix
+}
+
+
+// Increased specificity so it trumps ".block-link a"
+a.block-link__overlay-link {
+    position: absolute;
+    z-index: 0;
+    // this line is needed as all elements have a solid black
+    // background in high contrast mode
+    opacity: 0;
+}
+

@@ -1,0 +1,42 @@
+@import '../../../vars.scss';
+
+.AnswerTextInput {
+  border: 1px solid #dfdfdf;
+  flex-basis: 49%;
+  max-width: 49%;
+  margin-bottom: 15px;
+  .correctness-radio-button {
+    border-bottom: 1px solid #dfdfdf;
+    padding: 10px;
+    label {
+      font-size: 15px !important;
+    }
+  }
+  .TextInput > input {
+    margin-bottom: 0 !important;
+    border-width: 0 !important;
+  }
+  .answer-preview {
+    word-wrap: break-word;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    .inner {
+      width: 100%;
+    }
+    .preview-text {
+      margin: 0;
+      font-weight: bold;
+      font-size: 50px;
+      width: 100%;
+      text-align: center;
+    }
+    .preview-text.empty {
+      color: rgba(0, 0, 0, 0.43);
+    }
+  }
+}
+

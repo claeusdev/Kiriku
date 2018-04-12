@@ -1,0 +1,136 @@
+.DashboardQuizzesList {
+  > .body > .inner {
+    padding-top: 10px !important;
+    border-top-width: 0 !important;
+  }
+
+
+
+
+  .quizzes-list {
+    width: 75%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    .list-header {
+      border-bottom: 1px solid #e6e8eb;
+      padding-bottom: 10px;
+      a {
+        margin-right: 10px;
+        color: #637282;
+        font-size: 14.5px;
+      }
+      a:visited, a:focus {
+        text-decoration: none;
+      }
+      a.active {
+        color: #1b2733;
+        font-weight: bold;
+      }
+    }
+
+    li {
+    }
+
+    caption {
+      display: inline-block;
+    }
+  }
+
+
+
+  .quiz-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #e6e8eb;
+    .quiz-image {
+      margin-right: 20px;
+      img {
+        width: 80px;
+        height: 40px;
+      }
+    }
+    .quiz-details {
+
+      .top-line {
+        .quiz-title {
+          display: inline-block;
+          margin: 0 5px 0px 0;
+          font-size: 16px;
+          color: #1b2733;
+        }
+        .label {
+          position: relative;
+          bottom: 1px;
+        }
+        .published-icon {
+          color: #0070e0;
+          position: relative;
+          bottom: 1px;
+          font-size: 16px;
+        }
+      }
+      .bottom-line {
+        .quiz-summary,
+        .quiz-author,
+        .quiz-creation-date {
+          color: #637282;
+          font-size: 13.5px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+
+
+  .table {
+    width: 75%;
+    tr {
+    }
+    th {
+      border-bottom: 1px solid #e6e8eb;
+      .filter {
+        color: #1b2733;
+        font-size: 13.5px;
+      }
+    }
+    tr:first-child {
+      td {
+        border-width: 0;
+      }
+    }
+    td {
+      vertical-align: middle;
+      position: relative;
+      border-color: #e6e8eb;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    td:first-child {
+      text-align: center;
+      width: 70px;
+      img {
+        max-width: 100%;
+      }
+    }
+    .top-line {
+      .quiz-title {
+        display: inline-block;
+        margin: 0 5px 5px 0;
+        font-size: 16px;
+        color: #1b2733;
+      }
+      .label {
+        position: relative;
+        bottom: 1px;
+      }
+    }
+    .quiz-summary,
+    .quiz-author,
+    .quiz-creation-date {
+      color: #637282;
+    }
+  }
+}

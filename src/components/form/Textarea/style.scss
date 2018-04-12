@@ -1,0 +1,30 @@
+@import '../../../vars.scss';
+
+.Textarea textarea {
+  box-shadow: none;
+  border-color: #dfdfdf;
+  font-size: 15px;
+}
+
+.Textarea textarea:focus,
+.Textarea textarea:hover {
+  border-color: $primary-color;
+  outline: 0;
+  box-shadow: none;
+}
+.Textarea textarea:hover {
+  color: $primary-color;
+}
+
+.Textarea textarea::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #bbb;
+}
+.Textarea textarea::-moz-placeholder { /* Firefox 19+ */
+  color: #bbb;
+}
+.Textarea textarea:-ms-input-placeholder { /* IE 10+ */
+  color: #bbb;
+}
+.Textarea textarea:-moz-placeholder { /* Firefox 18- */
+  color: #bbb;
+}
