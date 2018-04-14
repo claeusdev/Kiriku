@@ -73,7 +73,7 @@ class Dashboard extends Component {
         <Breadcrumb>
           <Breadcrumb.Item active>Dashboard</Breadcrumb.Item>
         </Breadcrumb>
-        <h3 className="LunaAdmin-Content-Dashboard-Greeting">Good Afternoon, Sheldon.</h3>
+        <h3 className="LunaAdmin-Content-Dashboard-Greeting">Hello, Sheldon.</h3>
         {/* <p>Welcome home!</p> */}
         <Row className="show-grid">
           <Col xs={12} md={8} className="LunaAdmin-Content-Dashboard-QuickLinks">
