@@ -25,7 +25,7 @@ const Home = () => {
         <Navbar fixedTop collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#brand">Luna</a>
+              <a href="#brand">Apollo</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
