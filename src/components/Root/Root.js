@@ -4,9 +4,10 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 
 import { NotFound } from '../pages/NotFound';
-import Login from '../pages/Login/Container'; 
 import AuthenticatedRoute from '../AuthenticatedRoute/Container';
 import UnauthenticatedRoute from '../UnauthenticatedRoute/Container';
+import Login from '../pages/Login/Container'; 
+import Admin from '../screens/Admin/Container'; 
 
 const Root = ({ store, history }) => {
   return (
@@ -15,6 +16,7 @@ const Root = ({ store, history }) => {
         <ConnectedRouter history={history}>
           <Switch>
             <UnauthenticatedRoute exact path="/" component={Login}/>
+            <Route path="/admin" component={Admin}/>
             <Route component={NotFound}/>
           </Switch>
         </ConnectedRouter>

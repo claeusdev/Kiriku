@@ -1,0 +1,23 @@
+.LunaCard {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: .25rem;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.22);
+
+  // box-shadow: 0 0px 127px 0 rgba(136, 136, 136, 0.22);
+  // border: 1px solid rgba(0, 0, 0, 0.07);
+  min-height: 100px;
+  .LunaCard-Header {
+    border-bottom: 1px solid rgba(0,0,0,.07);
+  }
+  .LunaCard-Body {
+  }
+}

@@ -3,13 +3,12 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: auto;
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 html, body, #root, #App {
-  height: 100%;
 }
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
@@ -18,20 +17,20 @@ html, body, #root, #App {
 }
 
 #App {
-  a.button,
-  button {
-    border-width: 1px;
-    border-color: transparent;
-    padding: 05px 15px;
-    border-radius: 5px;
-    -webkit-font-smoothing: antialiased;
-    font-size: 15px;
-    .icon {
-      position: relative;
-      bottom: 1px;
-      margin-right: 4px;
-    }
-  }
+  // a.button,
+  // button {
+  //   border-width: 1px;
+  //   border-color: transparent;
+  //   padding: 05px 15px;
+  //   border-radius: 5px;
+  //   -webkit-font-smoothing: antialiased;
+  //   font-size: 15px;
+  //   .icon {
+  //     position: relative;
+  //     bottom: 1px;
+  //     margin-right: 4px;
+  //   }
+  // }
   a.button.block,
   button.block {
     width: 100%;
