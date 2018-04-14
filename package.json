@@ -30,7 +30,7 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start-js": "REACT_APP_FIREBASE_API_KEY=AIzaSyBxaXuGzT82Mw86CRaZ7Jw99mixz REACT_APP_FIREBASE_AUTH_DOMAIN=omg-quiz.firebaseapp.com REACT_APP_FIREBASE_DATABASE_URL=https://omg-quiz.firebaseio.com REACT_APP_FIREBASE_STORAGE_BUCKET=omg-quiz.appspot.com REACT_APP_S3_BUCKET_NAME=omg-quiz-assets REACT_APP_S3_IMAGES_FOLDER_NAME=quiz-thumbnails REACT_APP_S3_BUCKET_REGION=eu-west-2 REACT_APP_AWS_ACCESS_KEY_ID=AKIAJ6AAGEDRS2SO66HQ REACT_APP_AWS_SECRET_ACCESS_KEY=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 react-scripts start",
+    "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
