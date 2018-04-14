@@ -26,15 +26,15 @@ const QuickLinksBodyContent = () => {
     <div className="LunaAdmin-Content-Dashboard-QuickLinks-Items">
       <Link to="/" className="LunaAdmin-Content-Dashboard-QuickLinks-Item meme">
         <span className="svg-box"><MemeIcon /></span>
-        <p>New Meme</p>
+        <p>Post A Meme</p>
       </Link>
       <Link to="/" className="LunaAdmin-Content-Dashboard-QuickLinks-Item article">
         <span className="svg-box"><ArticleIcon /></span>
-        <p>New Article</p>
+        <p>Post An Article</p>
       </Link>
       <Link to="/" className="LunaAdmin-Content-Dashboard-QuickLinks-Item gif">
         <span className="svg-box"><GifIcon /></span>
-        <p>New Gif</p>
+        <p>Post A Gif</p>
       </Link>
     </div>
   );
