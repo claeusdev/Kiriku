@@ -68,12 +68,23 @@ const CollectionsBodyContent = () => {
 
 class Dashboard extends Component {
   render() {
+    let timeOfDay = '';
+    const hour = new Date().getHours();
+
+    if (hour > 12 && hour < 17) {
+      timeOfDay = 'Afternoon';
+    } else if (hour >= 17 && hour <= 23) {
+      timeOfDay = 'Evening';
+    } else {
+      timeOfDay = 'Morning';
+    }
+
     return (
       <div className="LunaAdmin-Content-Dashboard">
         <Breadcrumb>
           <Breadcrumb.Item active>Dashboard</Breadcrumb.Item>
         </Breadcrumb>
-        <h3 className="LunaAdmin-Content-Dashboard-Greeting">Hello, Sheldon.</h3>
+        <h3 className="LunaAdmin-Content-Dashboard-Greeting">Good {timeOfDay}.</h3>
         {/* <p>Welcome home!</p> */}
         <Row className="show-grid">
           <Col xs={12} md={8} className="LunaAdmin-Content-Dashboard-QuickLinks">
