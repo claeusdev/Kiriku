@@ -1,2 +1,2 @@
-## OMGVOICE Quizzes
-UI for publishing quiz content to the omgvoice.com website
+## Apollo by OMG!
+The beginnings of OMG!s in-house Content Publishing Platform
