@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onLogin() {
-    dispatch(push('/dashboard'));
+    dispatch(push('/admin'));
   }
 });
 
@@ -26,6 +26,6 @@ const Container = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(Outlet);
+)(Outlet)
 
 export default Container;

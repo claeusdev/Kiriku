@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import AuthenticatedRoute from '../AuthenticatedRoute/Container';
 import UnauthenticatedRoute from '../UnauthenticatedRoute/Container';
 import Admin from '../screens/Admin/Container'; 
+import Login from '../screens/Login/Container'; 
 
 const Root = ({ store, history }) => {
   return (
@@ -16,7 +17,8 @@ const Root = ({ store, history }) => {
             <Route exact path="/" render={(props) => {
               return <Redirect to='/admin' />
             }}/>
-            <Route path="/admin" component={Admin}/>
+            <AuthenticatedRoute path="/admin" component={Admin}/>
+            <UnauthenticatedRoute path="/login" component={Login}/>
             <Route component={() => <p>That page doesn't exist</p>}/>
           </Switch>
         </ConnectedRouter>

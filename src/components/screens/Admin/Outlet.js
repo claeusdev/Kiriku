@@ -13,11 +13,15 @@ import {
 import UserInitialsCircle from '../../misc/UserInitialsCircle';
 import CollectionsIcon from 'react-icons/lib/ti/book';
 import NewPostIcon from 'react-icons/lib/ti/edit';
+import LogoutIcon from 'react-icons/lib/ti/chevron-left-outline';
 
 import Dashboard from './Dashboard/Container';
 import './style.css';
 
-const Home = () => {
+const Admin = (props) => {
+  const { firebase, auth } = props;
+  const userEmail = auth.email;
+
   return (
     <div className="LunaAdmin">
 
@@ -36,12 +40,14 @@ const Home = () => {
             <Nav pullRight>
               <NavItem eventKey={2} href="#" className="new-post"> <NewPostIcon /> New Post </NavItem>
               <NavDropdown eventKey={3} title={<UserInitialsCircle userName="Sheldon" />} id="basic-nav-dropdown">
-                <MenuItem header>Wossop, Sheldon!</MenuItem>
+                <MenuItem header>{userEmail}</MenuItem>
                 {/* <MenuItem eventKey={3.1}>Action</MenuItem>
                 <MenuItem eventKey={3.2}>Another action</MenuItem>
                 <MenuItem eventKey={3.3}>Something else here</MenuItem> */}
                 <MenuItem divider />
-                <MenuItem eventKey={3.3}>Logout</MenuItem>
+                <MenuItem eventKey={3.3} onSelect={() => {
+                  firebase.logout();
+                }}><LogoutIcon /> Logout</MenuItem>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
@@ -60,5 +66,5 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Admin;
 

@@ -1,0 +1,71 @@
+.ApolloLogin {
+  height: 100vh;
+  background-color: #000;
+  background-color: #f5f5f5;
+  // background-image: url('https://images.unsplash.com/photo-1514898661705-b3fe699aa09e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=127aecf95dc152bae81389d237fc6e1d&auto=format&fit=crop&w=1950&q=80');
+  // background-image: url('https://images.unsplash.com/photo-1467400492058-1aad44d4bcd6?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8ccde5076574da8b07ec734afe4366b0&auto=format&fit=crop&w=2380&q=80');
+  // background-size: cover;
+  // background-position: top center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .ApolloLogin-FormBox {
+    background-color: #fff;
+    // opacity: 0.6;
+    flex-basis: 27%;
+    min-height: 400px;
+    border-radius: 3px;
+    padding: 35px;
+  }
+  .ApolloLogin-FormBox-Logo {
+    display: flex;
+    justify-content: center;
+    svg {
+      font-size: 60px;
+      color: #1abc9b;
+    }
+  }
+  .ApolloLogin-FormBox-Brand {
+    text-align: center;
+    font-weight: 900;
+    font-size: 27px;
+    margin-top: 30px;
+  }
+  .ApolloLogin-FormBox-Form {
+    margin-top: 100px;
+  }
+  .ApolloLogin-FormBox-Form-LoginError {
+    color:#da1d1d ;
+    margin-bottom: 30px;
+    font-size: 17px;
+    text-align: center;
+  }
+  .ApolloLogin-FormBox-Form-InputGroup.has-error {
+    .ApolloLogin-FormBox-Form-Input {
+      border-color:#da1d1d ;
+      margin-bottom: 2px;
+    }
+    .ApolloLogin-FormBox-Form-InputError {
+
+    }
+  }
+  .ApolloLogin-FormBox-Form-Input {
+    height: 50px; 
+    box-shadow: none;
+    margin-bottom: 25px;
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    font-size: 16px;
+  }
+  .ApolloLogin-FormBox-Form-Button:hover,
+  .ApolloLogin-FormBox-Form-Button:active,
+  .ApolloLogin-FormBox-Form-Button {
+    height: 50px; 
+    box-shadow: none;
+    margin-bottom: 25px;
+    font-size: 17px;
+    background-color: #1abc9b;
+    border-color: #1abc9b;
+    color: #fff;
+  }
+}
