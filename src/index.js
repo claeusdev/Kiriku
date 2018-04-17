@@ -8,6 +8,9 @@ import { Root } from './components/Root';
 import createHistory from 'history/createBrowserHistory';
 import configureStore from './configureStore';
 
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
 const history = createHistory();
 const store = configureStore(history);
 
