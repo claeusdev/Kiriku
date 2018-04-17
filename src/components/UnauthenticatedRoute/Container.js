@@ -3,13 +3,13 @@ import Outlet from './Outlet';
 import { connect } from 'react-redux';
 import { compose } from 'redux'
 import {
-  firebaseConnect,
-  pathToJS,
+  firebaseConnect
 } from 'react-redux-firebase'
 
 const mapStateToProps = (state) => {
+  const { firebase: { auth } } = state;
   return {
-    auth: pathToJS(state.firebase, 'auth')
+    auth
   };
 };
 

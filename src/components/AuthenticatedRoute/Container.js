@@ -7,8 +7,9 @@ import {
 } from 'react-redux-firebase'
 
 const mapStateToProps = (state) => {
+  const { firebase: { auth } } = state;
   return {
-    auth: pathToJS(state.firebase, 'auth')
+    auth
   };
 };
 

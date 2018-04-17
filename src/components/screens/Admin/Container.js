@@ -4,12 +4,12 @@ import { compose } from 'redux'
 import { push } from 'react-router-redux/actions';
 import {
   firebaseConnect,
-  pathToJS,
 } from 'react-redux-firebase'
 
 const mapStateToProps = (state) => {
+  const { firebase: { auth } } = state;
   return {
-    auth: pathToJS(state.firebase, 'auth'),
+    auth
   };
 };
 

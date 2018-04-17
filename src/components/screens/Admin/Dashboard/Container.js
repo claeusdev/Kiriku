@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux'
 import {
   firebaseConnect,
-  dataToJS,
-  pathToJS
 } from 'react-redux-firebase'
 
 const mapStateToProps = (state) => {
+  const { firebase: { auth } } = state;
   return {
-    auth: pathToJS(state.firebase, 'auth') 
+    auth
   };
 };
 

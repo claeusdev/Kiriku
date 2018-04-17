@@ -1,27 +1,20 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import {
-  isLoaded,
-} from 'react-redux-firebase'
 
-const AuthenticatedRoute = ({ component: Component, auth, ...rest }, context) => {
-  if (isLoaded(auth)) {
-    return (
-      <Route {...rest} render={props => (
-        !auth ? (
-          <Component {...props} />
-        ) : (
-            <Redirect to={{
-              pathname: '/admin',
-              state: { from: props.location }
-            }} />
-          )
-      )} />
-    );
-  } else {
-    return null;
-  }
+const UnauthenticatedRoute = ({ component: Component, auth, ...rest }, context) => {
+  return (
+    <Route {...rest} render={props => (
+      auth.isEmpty ? (
+        <Component {...props} />
+      ) : (
+          <Redirect to={{
+            pathname: '/admin',
+            state: { from: props.location }
+          }} />
+        )
+    )} />
+  );
 }
 
-export default AuthenticatedRoute;
+export default UnauthenticatedRoute;
 
