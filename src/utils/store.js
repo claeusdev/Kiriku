@@ -1,7 +1,7 @@
 import _ls from './localStorage';
 import omit from 'lodash/omit';
 
-const ROOT_STATE_KEY = 'OMGVOICE_QUIZZES';
+const ROOT_STATE_KEY = 'APOLLO';
 
 export const loadFromLocalStorage = () => {
   let state = _ls.get(ROOT_STATE_KEY);
@@ -10,14 +10,7 @@ export const loadFromLocalStorage = () => {
     return undefined;
   }
 
-  // remove ephemeral values from state
-  const stateWithoutEphemeralKeys = omit(state, [
-    'app.createQuizPage.userFormErrors',
-    'app.createQuizPage.appFormErrors',
-    'app.createQuizPage.isSavingQuiz'
-  ]);
-
-  return stateWithoutEphemeralKeys; 
+  return state;
 }
 
 export const saveToLocalStorage = (state) => {
