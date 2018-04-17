@@ -6,18 +6,34 @@ import { loadFromLocalStorage, saveToLocalStorage } from './utils/store';
 import throttle from 'lodash/throttle';
 
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import { reactReduxFirebase, firebaseStateReducer } from 'react-redux-firebase'
+
+import firebase from 'firebase';
+import 'firebase/firestore'; // add this to use Firestore
+import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
+import { reduxFirestore, firestoreReducer } from 'redux-firestore';
 
 const firebaseConfig = {
+  projectId: 'apollo-44fcb',
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET
 };
 
-const reduxFirebaseConfig = { userProfile: 'users' }
+const reactReduxFirebaseConfig = { 
+  userProfile: 'users',
+  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+};
+
+// initialize firebase instance with config from console
+firebase.initializeApp(firebaseConfig)
+
+// initialize Firestore
+firebase.firestore()
+
 const createStoreWithFirebase = compose(
-  reactReduxFirebase(firebaseConfig, reduxFirebaseConfig),
+  reactReduxFirebase(firebase, reactReduxFirebaseConfig),
+  reduxFirestore(firebase)
 )(createStore)
 
 const configureStore = (history) => {
@@ -28,7 +44,8 @@ const configureStore = (history) => {
     combineReducers({
       app: rootReducer,
       router: routerReducer,
-      firebase: firebaseStateReducer
+      firebase: firebaseReducer,
+      firestore: firestoreReducer
     }),
     persistedState,
     applyMiddleware(thunkMiddleware, loggerMiddleware, navigationMiddleware)
