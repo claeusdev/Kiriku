@@ -17,6 +17,32 @@ html, body, #root, #App {
 }
 
 #App {
+
+  .breadcrumb {
+    display: inline-block;
+    background-color: transparent;
+    border: 1px #ddd solid;
+    padding: 2px 6px;
+    li,
+    li > a {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    li:not(.active) > a {
+      color: #999;
+    }
+    li.active,
+    li.active > a {
+      color: #444;
+    }
+  }
+
+
+
+
+
+
   // a.button,
   // button {
   //   border-width: 1px;
