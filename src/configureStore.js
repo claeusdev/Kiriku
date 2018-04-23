@@ -22,7 +22,10 @@ const firebaseConfig = {
 
 const reactReduxFirebaseConfig = { 
   userProfile: 'users',
-  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
+  profileFactory: (userData, profileData) => { // how profiles are stored in database
+    return profileData;
+  }
 };
 
 // initialize firebase instance with config from console
