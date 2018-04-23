@@ -22,6 +22,7 @@
     "react-redux-firebase": "^2.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.8",
+    "react-select": "^1.2.1",
     "redux": "^3.7.2",
     "redux-firestore": "^0.4.1",
     "redux-logger": "^3.0.6",
