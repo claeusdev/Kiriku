@@ -4,7 +4,9 @@ import { compose } from 'redux'
 import { push } from 'react-router-redux/actions';
 import {
   withFirestore,
-  firestoreConnect
+  firestoreConnect,
+  isLoaded,
+  isEmpty
 } from 'react-redux-firebase'
 
 const mapStateToProps = (state) => {
@@ -12,32 +14,29 @@ const mapStateToProps = (state) => {
   const { firestore: { data: { articles_tags: articlesTagsMap, users, tags, countries } } } = state;
   let { firestore: { ordered: { articles } } } = state;
 
-  const articles_tags = [];
-  for (var key in articlesTagsMap) {
-    const data = articlesTagsMap[key];
-    articles_tags.push({
-      ...data,
-      id: key
+  // const articles_tags = [];
+  // for (var key in articlesTagsMap) {
+  //   const data = articlesTagsMap[key];
+  //   articles_tags.push({
+  //     ...data,
+  //     id: key
+  //   });
+  // }
+
+  if (isLoaded(articles) && isLoaded(users) && isLoaded(countries) && isLoaded(tags)) {
+    articles = articles.map(article => {
+      return {
+        ...article,
+        author: users[article.author],
+        tags: article.tags.map(tag => tags[tag]),
+        countries: article.countries.map(country => countries[country])
+      }
     });
   }
-
-  articles = articles.map(article => {
-    return {
-      ...article,
-      author: users[article.author],
-      tags: article.tags.map(tag => tags[tag]),
-      countries: article.countries.map(country => countries[country])
-    }
-  });
-
-  console.log(articles);
 
   return {
     auth,
     articles,
-    tags,
-    countries,
-    articles_tags
   };
 };
 

@@ -72,10 +72,13 @@ class CollectionsArticleList extends Component {
 
 	render() {
 		const { articles, tags, countries, firebase } = this.props;
-		if (!isLoaded(articles) || !isLoaded(tags) || !isLoaded(countries)) {
+		if (!isLoaded(articles)) {
 			return (
 				<div className="LunaAdmin-Content-Collections-Article-List">
-					<h2 className="LunaAdmin-Content-Collections-Article-List-Heading">Foo Ghazi</h2>
+					<div className="LunaAdmin-Content-Collections-Article-List-Header">
+						<h2 className="LunaAdmin-Content-Collections-Article-List-Header-Heading">Articles</h2>
+						<Link to="/admin/collections/article/new" className="LunaAdmin-Content-Collections-Article-List-Header-NewButton btn"><PlusIcon /> Add New</Link>
+					</div>
 					<p>Loading articles...</p>
 				</div>
 			);
