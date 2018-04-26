@@ -1,23 +1,4 @@
 .LunaAdmin-Content-Dashboard {
-  .breadcrumb {
-    display: inline-block;
-    background-color: transparent;
-    border: 1px #ddd solid;
-    padding: 2px 6px;
-    li,
-    li > a {
-      text-transform: uppercase;
-      font-weight: bold;
-      font-size: 12px;
-    }
-    li:not(.active) > a {
-      color: #999;
-    }
-    li.active,
-    li.active > a {
-      color: #444;
-    }
-  }
   .LunaAdmin-Content-Dashboard-Greeting {
     margin: 15px 0 15px 0;
     font-size: 20px;
