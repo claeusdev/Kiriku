@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import {
   Nav,
   Navbar,
@@ -30,7 +30,7 @@ const Admin = (props) => {
         <Navbar fixedTop collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#brand">Apollo</a>
+              <Link to="/admin">Apollo</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
