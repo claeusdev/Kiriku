@@ -1,0 +1,111 @@
+.Apollo-ArticleForm {
+  .FormHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  .FormHeading {
+    margin: 0;
+		font-weight: 900;
+  }
+  .FormBackLink {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    color: #777;
+  }
+  .Form-InputGroup {
+    margin-bottom: 30px;
+
+    > input {
+      height: 45px;
+      box-shadow: none;
+      font-size: 17px;
+      border-color: #dcdcdc;
+		}
+		
+		.fr-wrapper,
+		.fr-toolbar {
+			box-shadow: none !important;
+			border-left: 1px solid #dcdcdc !important;
+			border-right: 1px solid #dcdcdc !important;
+			border-bottom: 1px solid #dcdcdc !important;
+		}
+
+    .Select-control {
+      height: 45px;
+      border-color: #dcdcdc;
+
+      .Select-value {
+        display: flex;
+        align-items: center;
+      }
+
+      .Select-input {
+        input {
+          padding: 3px 0 12px;
+          height: 100%;
+        }
+      }
+
+      .Select-placeholder {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    > .button-group-box {
+      // display: block;
+      .btn-group.open {
+        button:focus,
+        button:hover {
+          background-color: #1abc9b;
+          border-color: #1abc9b;
+        }
+      }
+
+      button {
+        height: 45px;
+        font-size: 17px;
+        background-color: #1abc9b;
+        border-color: #1abc9b;
+
+        svg {
+          font-size: 19px;
+        }
+
+        .caret {
+          display: none;
+        }
+      }
+
+      .dropdown-menu {
+        > li > a {
+          padding: 10px 20px;
+          display: flex;
+
+          svg {
+            font-size: 19px;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+	}
+	.Form-InputGroup.has-error {
+		> input,
+		.Apollo-SingleImagePicker-Trigger,
+    .Select-control {
+			border-color: #a94442;
+		}
+		.fr-wrapper,
+		.fr-toolbar {
+			box-shadow: none !important;
+			border-left: 1px solid #a94442 !important;
+			border-right: 1px solid #a94442 !important;
+			border-bottom: 1px solid #a94442 !important;
+			border-top-color: #a94442;
+		}
+	}
+}
