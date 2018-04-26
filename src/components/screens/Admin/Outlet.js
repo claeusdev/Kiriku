@@ -16,6 +16,7 @@ import NewPostIcon from 'react-icons/lib/ti/edit';
 import LogoutIcon from 'react-icons/lib/ti/chevron-left-outline';
 
 import Dashboard from './Dashboard/Container';
+import Collections from './Collections';
 import './style.css';
 
 const Admin = (props) => {
@@ -58,7 +59,7 @@ const Admin = (props) => {
         <Grid>
           <Switch>
             <Route exact path="/admin" component={Dashboard} />
-            <Route path="/collections" component={() => <p>Collections</p>} />
+            <Route path="/admin/collections" component={Collections} />
           </Switch>
         </Grid>
       </div>

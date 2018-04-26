@@ -31,6 +31,13 @@ body, html {
       font-weight: 900;
       color: #4FC1E9;
     }
+    .dropdown-menu {
+      box-shadow: none;
+      border-color: #eee;
+      .divider {
+        background-color: #eee;
+      }
+    }
   }
   .header:after {
     content: "";
