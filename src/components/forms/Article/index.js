@@ -32,6 +32,7 @@ import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'font-awesome/css/font-awesome.css';
 
 import FroalaEditor from 'react-froala-wysiwyg';
+import FroalaEditorView from 'react-froala-wysiwyg';
 
 import ReactFilestack from 'filestack-react';
 
@@ -40,22 +41,43 @@ import 'react-select/dist/react-select.css';
 
 import './style.css';
 
+const articleDefaults = {
+	title: '',
+	content: '',
+	coverImageUrl: '',
+	tags: [],
+	countries: [],
+	status: ''
+};
+
+
 export default class ArticleForm extends Component {
 	constructor(props) {
 		super(props);
 
+		const { article = articleDefaults } = props;
+
+		const { 
+			title,
+			content,
+			coverImageUrl,
+			tags,
+			countries,
+			status
+		} = article;
+
 		this.state = {
-			title: '',
+			title,
 			titleState: null,
-			content: '',
+			content,
 			contentState: null,
-			coverImageUrl: '',
+			coverImageUrl,
 			coverImageUrlState: null,
-			tags: [],
+			tags,
 			tagsState: null,
-			countries: [],
+			countries,
 			countriesState: null,
-			status: ''
+			status
 		};
 
 		this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -64,6 +86,28 @@ export default class ArticleForm extends Component {
 		this.handleTagsChange = this.handleTagsChange.bind(this);
 		this.handleCountriesChange = this.handleCountriesChange.bind(this);
 		this.saveAs = this.saveAs.bind(this);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		const { article = articleDefaults } = nextProps;
+
+		const { 
+			title,
+			content,
+			coverImageUrl,
+			tags,
+			countries,
+			status
+		} = article;
+
+		this.setState({
+			title,
+			content,
+			coverImageUrl,
+			tags,
+			countries,
+			status
+		});
 	}
 
 	handleTitleChange(e) {
@@ -173,7 +217,7 @@ export default class ArticleForm extends Component {
 	}
 
 	render() {
-		const { formTitle, onSave, saving, backLinkUrl } = this.props;
+		const { formTitle, onSave, saving, backLinkUrl, editable } = this.props;
 		let { tags: availableTags } = this.props;
 		availableTags = isLoaded(availableTags) ? availableTags : [];
 		availableTags = availableTags.map(tag => ({ label: tag.name, value: tag.id }));
@@ -218,6 +262,7 @@ export default class ArticleForm extends Component {
 									value={title}
 									placeholder="Add a title here"
 									onChange={this.handleTitleChange}
+									disabled={!editable}
 								/>
 								{titleState === 'error' &&
 									<HelpBlock className="ApolloLogin-FormBox-Form-InputError">Please add a title</HelpBlock>
@@ -230,6 +275,16 @@ export default class ArticleForm extends Component {
 									tag='textarea'
 									model={content}
 									onModelChange={this.handleContentChange}
+									disabled={!editable}
+									config={{
+										events : {
+											'froalaEditor.initialized' : function(e, editor) {
+												if (!editable) {
+													editor.edit.off();
+												}
+											}
+										}
+									}}
 								/>
 								{contentState === 'error' &&
 									<HelpBlock className="ApolloLogin-FormBox-Form-InputError">Please enter some content</HelpBlock>
@@ -238,7 +293,7 @@ export default class ArticleForm extends Component {
 
 							<FormGroup className="Form-InputGroup" validationState={coverImageUrlState}>
 								<ControlLabel>Choose a dope cover image</ControlLabel>
-								<SingleImagePicker previewUrl={coverImageUrl} onFileUpload={this.handleCoverImageUrlChange} />
+								<SingleImagePicker previewUrl={coverImageUrl} onFileUpload={this.handleCoverImageUrlChange} editable={editable} />
 								{coverImageUrlState === 'error' &&
 									<HelpBlock className="ApolloLogin-FormBox-Form-InputError">Please add a cover image</HelpBlock>
 								}
@@ -254,6 +309,7 @@ export default class ArticleForm extends Component {
 									value={tags}
 									onChange={this.handleTagsChange}
 									options={availableTags}
+									disabled={!editable}
 								/>
 								{tagsState === 'error' &&
 									<HelpBlock className="ApolloLogin-FormBox-Form-InputError">Please select at least one</HelpBlock>
@@ -282,6 +338,7 @@ export default class ArticleForm extends Component {
 											value: 'kenya'
 										}
 									]}
+									disabled={!editable}
 								/>
 								{countriesState === 'error' &&
 									<HelpBlock className="ApolloLogin-FormBox-Form-InputError">Please select at least one</HelpBlock>
