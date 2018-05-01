@@ -58,7 +58,7 @@ const CollectionsBodyContent = () => {
         <CircleIcon />
         Memes
       </Link>
-      <Link to="/" className="LunaAdmin-Content-Dashboard-Collections-Item meme">
+      <Link to="/admin/collections/gif" className="LunaAdmin-Content-Dashboard-Collections-Item meme">
         <CircleIcon />
         GIFs
       </Link>
