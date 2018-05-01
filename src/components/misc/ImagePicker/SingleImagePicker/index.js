@@ -17,8 +17,16 @@ export default class SingleImagePicker extends Component {
     };
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const { previewUrl } = nextProps;
+
+		this.setState({
+			previewUrl
+		});
+	}
+
 	render() {
-		const { onFileUpload } = this.props;
+		const { onFileUpload, editable } = this.props;
 		const { previewUrl } = this.state;
 
 		const ImagePreview = (
@@ -26,6 +34,14 @@ export default class SingleImagePicker extends Component {
 				<img src={previewUrl} className="Apollo-SingleImagePicker-PreviewImage" />
 			</div>
 		);
+
+		if (!editable) {
+			return (
+				<div className="Apollo-SingleImagePicker PreviewOnly">
+					{ImagePreview}
+				</div>
+			);
+		}
 
 		const triggerButtonContent = previewUrl ? ImagePreview : <ImagePickerIcon />;
 

@@ -5,6 +5,12 @@
     border-radius: 4px;
     text-align: center;
 	}
+	.Apollo-SingleImagePickerPreview-ReadOnly {
+		height: 250px;
+    background-color: #fff;
+    border-radius: 4px;
+    text-align: center;
+	}
 	.Apollo-SingleImagePicker-PreviewImage {
 		max-width: 100%;
 		max-height: 100%;
@@ -23,5 +29,12 @@
 	}
 	.Apollo-SingleImagePicker-Trigger:focus {
 		outline: 0;
+	}
+}
+.Apollo-SingleImagePicker.PreviewOnly {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	.Apollo-SingleImagePickerPreview {
+		padding: 40px 30px;
 	}
 }
