@@ -111,7 +111,7 @@ class CollectionsArticleList extends Component {
 						<input type="checkbox" />
 					</td>
 					<td>
-						<a href="">{article.title}</a>
+						<Link to={`/admin/collections/article/${article.id}`}>{article.title}</Link>
 					</td>
 					<td>{tagsList}</td>
 					<td>{author.fullName}</td>
