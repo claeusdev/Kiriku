@@ -217,7 +217,7 @@ export default class ArticleForm extends Component {
 	}
 
 	render() {
-		const { formTitle, onSave, saving, backLinkUrl, editable } = this.props;
+		const { formTitle, onSave, saving, backLinkUrl, editable = true } = this.props;
 		let { tags: availableTags } = this.props;
 		availableTags = isLoaded(availableTags) ? availableTags : [];
 		availableTags = availableTags.map(tag => ({ label: tag.name, value: tag.id }));
