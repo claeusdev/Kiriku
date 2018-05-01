@@ -90,7 +90,7 @@ class CollectionsArticleList extends Component {
 				lastUpdatedAt,
 				publishedAt,
 				status,
-				author,
+				author = {},
 				tags,
 				countries
 			} = article;
