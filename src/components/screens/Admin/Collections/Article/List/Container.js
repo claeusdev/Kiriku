@@ -2,6 +2,8 @@ import Outlet from './index';
 import { connect } from 'react-redux';
 import { compose } from 'redux'
 import { push } from 'react-router-redux/actions';
+import keyBy from 'lodash/keyBy';
+
 import {
   withFirestore,
   firestoreConnect,
@@ -11,23 +13,17 @@ import {
 
 const mapStateToProps = (state) => {
   const { firebase: { auth, profile } } = state;
-  const { firestore: { data: { articles_tags: articlesTagsMap, users, tags, countries } } } = state;
-  let { firestore: { ordered: { articles } } } = state;
+  const { firestore: { data: { articles_tags: articlesTagsMap, tags, countries } } } = state;
+  let { firestore: { ordered: { articles, users } } } = state;
 
-  // const articles_tags = [];
-  // for (var key in articlesTagsMap) {
-  //   const data = articlesTagsMap[key];
-  //   articles_tags.push({
-  //     ...data,
-  //     id: key
-  //   });
-  // }
+  const collectionsLoaded = isLoaded(articles) && isLoaded(users) && isLoaded(countries) && isLoaded(tags);
 
-  if (isLoaded(articles) && isLoaded(users) && isLoaded(countries) && isLoaded(tags)) {
+  if (collectionsLoaded) {
+    const usersKeyedById = keyBy(users, user => user.id);
     articles = articles.map(article => {
       return {
         ...article,
-        author: users[article.author],
+        author: usersKeyedById[article.author],
         tags: article.tags.map(tag => tags[tag]),
         countries: article.countries.map(country => countries[country])
       }
@@ -36,7 +32,7 @@ const mapStateToProps = (state) => {
 
   return {
     auth,
-    articles,
+    articles: collectionsLoaded ? articles : undefined
   };
 };
 
@@ -61,10 +57,6 @@ const Container = compose(
     {
       collection: 'users'
     }
-    // {
-		// 	collection: 'articles_tags',
-    //   storeAs: 'articlesTags'
-		// }
   ]),
   connect(
     mapStateToProps,
