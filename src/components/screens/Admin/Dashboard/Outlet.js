@@ -32,7 +32,7 @@ const QuickLinksBodyContent = () => {
         <span className="svg-box"><ArticleIcon /></span>
         <p>Post An Article</p>
       </Link>
-      <Link to="/" className="LunaAdmin-Content-Dashboard-QuickLinks-Item gif">
+      <Link to="/admin/collections/gif/new" className="LunaAdmin-Content-Dashboard-QuickLinks-Item gif">
         <span className="svg-box"><GifIcon /></span>
         <p>Post A Gif</p>
       </Link>
