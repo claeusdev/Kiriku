@@ -3,9 +3,9 @@
 import React from 'react';
 import { Breadcrumb, Row, Col } from 'react-bootstrap';
 import { Switch, Route, Link } from 'react-router-dom';
-import List from './List/Container';
+// import List from './List/Container';
 import New from './New/Container';
-import Show from './Show/Container';
+// import Show from './Show/Container';
 
 export default () => {
 	return (
@@ -19,9 +19,9 @@ export default () => {
 			</ol>
 
 			<Switch>
-				<Route exact path="/admin/collections/gif" component={List} />
+				{/* <Route exact path="/admin/collections/gif" component={List} /> */}
 				<Route exact path="/admin/collections/gif/new" component={New} />
-				<Route exact path="/admin/collections/gif/:gif_id" component={Show} />
+				{/* <Route exact path="/admin/collections/gif/:gif_id" component={Show} /> */}
 			</Switch>
 		</div>
 	);
