@@ -184,7 +184,7 @@ export default class GifForm extends Component {
 	}
 
 	render() {
-		const { formDescription, onSave, saving, backLinkUrl, editable = true } = this.props;
+		const { formTitle, onSave, saving, backLinkUrl, editable = true } = this.props;
 		let { tags: availableTags } = this.props;
 		availableTags = isLoaded(availableTags) ? availableTags : [];
 		availableTags = availableTags.map(tag => ({ label: tag.name, value: tag.id }));
@@ -213,7 +213,7 @@ export default class GifForm extends Component {
 		return (
 			<div className="Apollo-GifForm">
 				<div className="FormHeader">
-					<h4 className="FormHeading">{formDescription}</h4>
+					<h4 className="FormHeading">{formTitle}</h4>
 					<Link className="FormBackLink" to={backLinkUrl}><BackIcon /> Back</Link>
 				</div>
 				<form className="NewGifForm">
