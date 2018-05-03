@@ -24,7 +24,7 @@ const QuickLinksHeaderContent = () => {
 const QuickLinksBodyContent = () => {
   return (
     <div className="LunaAdmin-Content-Dashboard-QuickLinks-Items">
-      <Link to="/" className="LunaAdmin-Content-Dashboard-QuickLinks-Item meme">
+      <Link to="/admin/collections/meme/new" className="LunaAdmin-Content-Dashboard-QuickLinks-Item meme">
         <span className="svg-box"><MemeIcon /></span>
         <p>Post A Meme</p>
       </Link>
@@ -54,7 +54,7 @@ const CollectionsBodyContent = () => {
         <CircleIcon />
         Articles
       </Link>
-      <Link to="/" className="LunaAdmin-Content-Dashboard-Collections-Item meme">
+      <Link to="/admin/collections/meme" className="LunaAdmin-Content-Dashboard-Collections-Item meme">
         <CircleIcon />
         Memes
       </Link>
