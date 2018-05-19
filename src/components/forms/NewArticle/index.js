@@ -4,7 +4,8 @@ import ArticleForm from '../Article/Container';
 const NewArticleForm = (props) => {
 	const updatedProps = {
 		...props,
-		formTitle: 'New Article'
+		formTitle: 'New Article',
+		mode: 'new'
 	};
 
 	return (

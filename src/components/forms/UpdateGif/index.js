@@ -4,7 +4,8 @@ import GifForm from '../Gif/Container';
 const UpdateGifForm = (props) => {
 	const updatedProps = {
 		...props,
-		formTitle: 'Edit Gif'
+		formTitle: 'Edit Gif',
+		mode: 'edit'
 	};
 
 	return (

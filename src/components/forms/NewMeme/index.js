@@ -4,7 +4,8 @@ import MemeForm from '../Meme/Container';
 const NewMemeForm = (props) => {
 	const updatedProps = {
 		...props,
-		formTitle: 'New Meme'
+		formTitle: 'New Meme',
+		mode: 'new'
 	};
 
 	return (

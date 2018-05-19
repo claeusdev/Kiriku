@@ -4,7 +4,8 @@ import MemeForm from '../Meme/Container';
 const UpdateMemeForm = (props) => {
 	const updatedProps = {
 		...props,
-		formTitle: 'Edit Meme'
+		formTitle: 'Edit Meme',
+		mode: 'edit'
 	};
 
 	return (
