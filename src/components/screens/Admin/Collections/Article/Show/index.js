@@ -13,6 +13,7 @@ import {
 	MenuItem
 } from 'react-bootstrap';
 import { UpdateArticleForm } from '../../../../../forms';
+import _ from 'lodash';
 
 import {
   isLoaded
@@ -35,8 +36,83 @@ class CollectionsArticleNew extends Component {
 	
 	saveArticle(article) {
 		const { firestore } = this.props;
-		return firestore.add('articles', article)
-	} linkArticleWithTags(articleId, tags) {
+		const { id } = article;
+		delete article[id];
+		// return new Promise((resolve, reject) => {
+		// 	resolve();
+		// });
+		return firestore.set(`/articles/${article.id}`, article);
+	} 
+
+	updateTagLinks(articleId, newTagsList) {
+		return new Promise((resolve, reject) => {
+			const { firestore, article } = this.props;
+			const { tags: oldTagsList } = article;
+
+			if (!_.isEqual(oldTagsList, newTagsList)) {
+				const tagLinksToRemove = _.difference(oldTagsList, newTagsList);
+				const tagLinksToAdd = _.difference(newTagsList, oldTagsList);
+
+				const removeTagLinkRequests = tagLinksToRemove.map(tag => {
+					return firestore.delete({ collection: `articles_tags`, doc: `${articleId}_${tag}` });
+				});
+
+				const addTagLinkRequests = tagLinksToAdd.map(tag => {
+					return firestore.set(`/articles_tags/${articleId}_${tag}`, {
+						articleId,
+						tagId: tag
+					});
+				});
+
+				const linkRequests = addTagLinkRequests.concat(removeTagLinkRequests);
+				Promise.all(linkRequests)
+					.then(() => {
+						resolve();
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			} else {
+				return resolve();
+			}
+		});
+	}
+
+	updateCountryLinks(articleId, newCountriesList) {
+		return new Promise((resolve, reject) => {
+			const { firestore, article } = this.props;
+			const { countries: oldCountriesList } = article;
+
+			if (!_.isEqual(oldCountriesList, newCountriesList)) {
+				const countryLinksToRemove = _.difference(oldCountriesList, newCountriesList);
+				const countryLinksToAdd = _.difference(newCountriesList, oldCountriesList);
+
+				const removeCountryLinkRequests = countryLinksToRemove.map(country => {
+					return firestore.delete({ collection: `articles_countries`, doc: `${articleId}_${country}` });
+				});
+
+				const addCountryLinkRequests = countryLinksToAdd.map(country => {
+					return firestore.set(`/articles_countries/${articleId}_${country}`, {
+						articleId,
+						countryId: country
+					});
+				});
+
+				const linkRequests = addCountryLinkRequests.concat(removeCountryLinkRequests);
+				Promise.all(linkRequests)
+					.then(() => {
+						resolve();
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			} else {
+				return resolve();
+			}
+		});
+	}
+
+	linkArticleWithTags(articleId, tags) {
 		return new Promise((resolve, reject) => {
 			const { firestore } = this.props;
 
@@ -79,15 +155,14 @@ class CollectionsArticleNew extends Component {
 		const { tags, countries } = article;
 
 		this.setState({ saving: true });
-		this.saveArticle(article)
-		.then((savedArticle) => {
-			const savedArticleId = savedArticle._key.path.segments[1]
-			return this.linkArticleWithTags(savedArticleId, tags);
+		this.updateTagLinks(article.id, tags)
+		.then(() => {
+			return this.updateCountryLinks(article.id, countries);
 		})
-		.then((savedArticleId) => {
-			return this.linkArticleWithCountries(savedArticleId, countries);
+		.then(() => {
+			return this.saveArticle(article)
 		})
-		.then((result) => {
+		.then(() => {
 			this.setState({ saving: false });
 			onSave();
 		})
@@ -100,7 +175,6 @@ class CollectionsArticleNew extends Component {
 	render() {
 		const { saving } = this.state;
 		const { article } = this.props;
-		console.log('>>>>>??', article);
 
 		if (!isLoaded(article)) {
 			return (
