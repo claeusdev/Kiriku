@@ -31,16 +31,14 @@ class CollectionsArticleNew extends Component {
 
 		this.handleSave = this.handleSave.bind(this);
 		this.saveArticle = this.saveArticle.bind(this);
-		this.linkArticleWithTags = this.linkArticleWithTags.bind(this);
+		this.updateCountryLinks = this.updateCountryLinks.bind(this);
+		this.updateTagLinks = this.updateTagLinks.bind(this);
 	}
 	
 	saveArticle(article) {
 		const { firestore } = this.props;
 		const { id } = article;
 		delete article[id];
-		// return new Promise((resolve, reject) => {
-		// 	resolve();
-		// });
 		return firestore.set(`/articles/${article.id}`, article);
 	} 
 
@@ -110,40 +108,6 @@ class CollectionsArticleNew extends Component {
 				return resolve();
 			}
 		});
-	}
-
-	linkArticleWithTags(articleId, tags) {
-		return new Promise((resolve, reject) => {
-			const { firestore } = this.props;
-
-			const linkTagRequests = tags.map(tag => {
-				return firestore.set(`/articles_tags/${articleId}_${tag}`, {
-					articleId,
-					tagId: tag
-				});
-			});
-
-			Promise.all(linkTagRequests)
-				.then(() => {
-					resolve(articleId);
-				})
-				.catch((error) => {
-					reject(error);
-				});
-		});
-	}
-
-	linkArticleWithCountries(articleId, countries) {
-		const { firestore } = this.props;
-
-		const linkCountryRequests = countries.map(country => {
-			return firestore.set(`/articles_countries/${articleId}_${country}`, {
-				articleId,
-				countryId: country
-			});
-		});
-
-		return Promise.all(linkCountryRequests)
 	}
 
 	handleSave(article) {
