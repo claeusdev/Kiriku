@@ -13,6 +13,7 @@ import {
 	MenuItem
 } from 'react-bootstrap';
 import { UpdateMemeForm } from '../../../../../forms';
+import _ from 'lodash';
 
 import {
   isLoaded
@@ -30,44 +31,83 @@ class CollectionsMemeNew extends Component {
 
 		this.handleSave = this.handleSave.bind(this);
 		this.saveMeme = this.saveMeme.bind(this);
-		this.linkMemeWithTags = this.linkMemeWithTags.bind(this);
+		this.updateCountryLinks = this.updateCountryLinks.bind(this);
+		this.updateTagLinks = this.updateTagLinks.bind(this);
 	}
-	
+
 	saveMeme(meme) {
 		const { firestore } = this.props;
-		return firestore.add('memes', meme)
-	} linkMemeWithTags(memeId, tags) {
+		const { id } = meme;
+		delete meme[id];
+		return firestore.set(`/memes/${meme.id}`, meme);
+	} 
+
+	updateTagLinks(memeId, newTagsList) {
 		return new Promise((resolve, reject) => {
-			const { firestore } = this.props;
+			const { firestore, meme } = this.props;
+			const { tags: oldTagsList } = meme;
 
-			const linkTagRequests = tags.map(tag => {
-				return firestore.set(`/memes_tags/${memeId}_${tag}`, {
-					memeId,
-					tagId: tag
-				});
-			});
+			if (!_.isEqual(oldTagsList, newTagsList)) {
+				const tagLinksToRemove = _.difference(oldTagsList, newTagsList);
+				const tagLinksToAdd = _.difference(newTagsList, oldTagsList);
 
-			Promise.all(linkTagRequests)
-				.then(() => {
-					resolve(memeId);
-				})
-				.catch((error) => {
-					reject(error);
+				const removeTagLinkRequests = tagLinksToRemove.map(tag => {
+					return firestore.delete({ collection: `memes_tags`, doc: `${memeId}_${tag}` });
 				});
+
+				const addTagLinkRequests = tagLinksToAdd.map(tag => {
+					return firestore.set(`/memes_tags/${memeId}_${tag}`, {
+						memeId,
+						tagId: tag
+					});
+				});
+
+				const linkRequests = addTagLinkRequests.concat(removeTagLinkRequests);
+				Promise.all(linkRequests)
+					.then(() => {
+						resolve();
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			} else {
+				return resolve();
+			}
 		});
 	}
 
-	linkMemeWithCountries(memeId, countries) {
-		const { firestore } = this.props;
+	updateCountryLinks(memeId, newCountriesList) {
+		return new Promise((resolve, reject) => {
+			const { firestore, meme } = this.props;
+			const { countries: oldCountriesList } = meme;
 
-		const linkCountryRequests = countries.map(country => {
-			return firestore.set(`/memes_countries/${memeId}_${country}`, {
-				memeId,
-				countryId: country
-			});
+			if (!_.isEqual(oldCountriesList, newCountriesList)) {
+				const countryLinksToRemove = _.difference(oldCountriesList, newCountriesList);
+				const countryLinksToAdd = _.difference(newCountriesList, oldCountriesList);
+
+				const removeCountryLinkRequests = countryLinksToRemove.map(country => {
+					return firestore.delete({ collection: `memes_countries`, doc: `${memeId}_${country}` });
+				});
+
+				const addCountryLinkRequests = countryLinksToAdd.map(country => {
+					return firestore.set(`/memes_countries/${memeId}_${country}`, {
+						memeId,
+						countryId: country
+					});
+				});
+
+				const linkRequests = addCountryLinkRequests.concat(removeCountryLinkRequests);
+				Promise.all(linkRequests)
+					.then(() => {
+						resolve();
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			} else {
+				return resolve();
+			}
 		});
-
-		return Promise.all(linkCountryRequests)
 	}
 
 	handleSave(meme) {
@@ -79,15 +119,15 @@ class CollectionsMemeNew extends Component {
 		const { tags, countries } = meme;
 
 		this.setState({ saving: true });
-		this.saveMeme(meme)
-		.then((savedMeme) => {
-			const savedMemeId = savedMeme._key.path.segments[1]
-			return this.linkMemeWithTags(savedMemeId, tags);
+
+		this.updateTagLinks(meme.id, tags)
+		.then(() => {
+			return this.updateCountryLinks(meme.id, countries);
 		})
-		.then((savedMemeId) => {
-			return this.linkMemeWithCountries(savedMemeId, countries);
+		.then(() => {
+			return this.saveMeme(meme)
 		})
-		.then((result) => {
+		.then(() => {
 			this.setState({ saving: false });
 			onSave();
 		})
@@ -100,7 +140,6 @@ class CollectionsMemeNew extends Component {
 	render() {
 		const { saving } = this.state;
 		const { meme } = this.props;
-		console.log('>>>>>??', meme);
 
 		if (!isLoaded(meme)) {
 			return (
