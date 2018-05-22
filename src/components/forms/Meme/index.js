@@ -175,7 +175,8 @@ export default class MemeForm extends Component {
 			descriptionState === 'error' ||
 			imageUrlState === 'error' ||
 			tagsState === 'error' ||
-			countriesState === 'error'
+			countriesState === 'error' ||
+			statusState === 'error'
 		);
 
 		if (formHasErrors) {
@@ -214,14 +215,16 @@ export default class MemeForm extends Component {
 			description,
 			imageUrl,
 			tags,
-			countries
+			countries,
+			status
 		} = this.state;
 
 		const newState = {
 			descriptionState: null,
 			imageUrlState: null,
 			tagsState: null,
-			countriesState: null
+			countriesState: null,
+			statusState: null
 		};
 
 		
@@ -239,6 +242,10 @@ export default class MemeForm extends Component {
 
 		if (countries.length === 0) {
 			newState.countriesState = 'error';
+		}
+
+		if (!status) {
+			newState.statusState = 'error';
 		}
 
 		this.setState(newState, () => {
@@ -433,20 +440,6 @@ export default class MemeForm extends Component {
 								</div>
 							</FormGroup>
 							}
-
-							{/* <FormGroup className="Form-InputGroup" validationState={null}>
-								<ControlLabel>Ready. Set. Go</ControlLabel>
-								<div className="button-group-box">
-									<DropdownButton
-										bsStyle="success btn-block"
-										title={saveButtonContent}
-										disabled={saving}
-									>
-										<MenuItem eventKey="1" onSelect={() => this.validateForm('draft')}><LockIcon /> Save As Draft</MenuItem>
-										<MenuItem eventKey="2" onSelect={() => this.validateForm('published')}><EyeIcon /> Save and Publish</MenuItem>
-									</DropdownButton>
-								</div>
-							</FormGroup> */}
 						</Col>
 					</Row>
 				</form>
