@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { isLoaded } from 'react-redux-firebase'
 import { Link } from 'react-router-dom';
+import { Card } from '../../content';
 import {
 	Breadcrumb,
 	Row,
@@ -10,13 +11,16 @@ import {
 	HelpBlock,
 	ControlLabel,
 	DropdownButton,
-	MenuItem
+	MenuItem,
+	Button
 } from 'react-bootstrap';
 
 import LockIcon from 'react-icons/lib/ti/lock-closed';
 import FlashIcon from 'react-icons/lib/ti/flash';
 import EyeIcon from 'react-icons/lib/ti/eye';
 import BackIcon from 'react-icons/lib/ti/chevron-left';
+import EditIcon from 'react-icons/lib/ti/edit';
+import ArchiveIcon from 'react-icons/lib/ti/archive';
 import { MovingEllipsis } from '../../misc/Ellipsis';
 
 import { SingleImagePicker } from '../../misc/ImagePicker';
@@ -36,6 +40,9 @@ const gifDefaults = {
 	status: ''
 };
 
+const capitalizeFirstLetter = (word) => {
+	return `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`;
+};
 
 export default class GifForm extends Component {
 	constructor(props) {
@@ -60,26 +67,46 @@ export default class GifForm extends Component {
 			tagsState: null,
 			countries,
 			countriesState: null,
-			status
+			status,
+			statusState: null,
+			showStatusChangeForm: false
 		};
 
 		this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
 		this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
 		this.handleTagsChange = this.handleTagsChange.bind(this);
 		this.handleCountriesChange = this.handleCountriesChange.bind(this);
+		this.handleStatusChange = this.handleStatusChange.bind(this);
+		this.showStatusChangeForm = this.showStatusChangeForm.bind(this);
+		this.hideStatusChangeForm = this.hideStatusChangeForm.bind(this);
+		this.discardStatusChanges = this.discardStatusChanges.bind(this);
+		this.validateForm = this.validateForm.bind(this);
 		this.saveAs = this.saveAs.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
 		const { gif = gifDefaults } = nextProps;
 
+		let { tags, countries } = gif;
 		const { 
 			description,
 			imageUrl,
-			tags,
-			countries,
 			status
 		} = gif;
+
+		countries = countries.map(country => {
+			return {
+				label: capitalizeFirstLetter(country),
+				value: country
+			};
+		});
+
+		tags = tags.map(tag => {
+			return {
+				label: capitalizeFirstLetter(tag),
+				value: tag
+			};
+		});
 
 		this.setState({
 			description,
@@ -105,6 +132,30 @@ export default class GifForm extends Component {
 	handleCountriesChange(countries) {
 		this.setState({ countries });
 	}
+	
+	handleStatusChange(status) {
+		let value = "";
+		if (status) {
+			value = status.value;
+		}
+
+		this.setState({ status: value });
+	}
+
+	showStatusChangeForm() {
+		this.setState({ showStatusChangeForm: true });
+	}
+
+	hideStatusChangeForm() {
+		this.setState({ showStatusChangeForm: false });
+	}
+
+	discardStatusChanges() {
+		const { gif = gifDefaults } = this.props;
+		const { status } = gif;
+		this.setState({ status });
+		this.hideStatusChangeForm();
+	}
 
 	saveAs(type) {
 		const { 
@@ -115,35 +166,51 @@ export default class GifForm extends Component {
 			tags,
 			tagsState,
 			countries,
-			countriesState
+			countriesState,
+			status,
+			statusState
 		} = this.state;
 
 		const formHasErrors = (
 			descriptionState === 'error' ||
 			imageUrlState === 'error' ||
 			tagsState === 'error' ||
-			countriesState === 'error'
+			countriesState === 'error' ||
+			statusState === 'error'
 		);
 
 		if (formHasErrors) {
-			console.log('vavoom');
 			return;
 		}
 
 
 		const now = new Date();
 
-		const { onSave, auth } = this.props;
-		onSave({
+		const { onSave, auth, mode, gif } = this.props;
+		const gifData = {
 			description,
 			imageUrl,
 			tags,
 			countries,
-			status: type,
-			author: auth.uid,
-			createdAt: now,
+			status,
 			lastUpdatedAt: now
-		});
+		};
+
+		if (mode === 'edit') {
+			gifData['id'] = gif.id;
+			gifData['author'] = gif.author;
+			gifData['createdAt'] = gif.createdAt;
+		}
+
+		if (mode === 'new') {
+			gifData['createdAt'] = now;
+			gifData['author'] = auth.uid;
+			gifData['status'] = type;
+		}
+
+		// console.log('...', gifData);
+		// return;
+		onSave(gifData);
 	}
 
 	validateForm(gifStatus) {
@@ -151,17 +218,18 @@ export default class GifForm extends Component {
 			description,
 			imageUrl,
 			tags,
-			countries
+			countries,
+			status
 		} = this.state;
 
 		const newState = {
 			descriptionState: null,
 			imageUrlState: null,
 			tagsState: null,
-			countriesState: null
+			countriesState: null,
+			statusState: null
 		};
 
-		
 		if (!description) {
 			newState.descriptionState = 'error';
 		}
@@ -178,13 +246,17 @@ export default class GifForm extends Component {
 			newState.countriesState = 'error';
 		}
 
+		if (!status) {
+			newState.statusState = 'error';
+		}
+
 		this.setState(newState, () => {
 			this.saveAs(gifStatus);
 		});
 	}
 
 	render() {
-		const { formTitle, onSave, saving, backLinkUrl, editable = true } = this.props;
+		const { formTitle, onSave, mode, saving, backLinkUrl, editable = true } = this.props;
 		let { tags: availableTags } = this.props;
 		availableTags = isLoaded(availableTags) ? availableTags : [];
 		availableTags = availableTags.map(tag => ({ label: tag.name, value: tag.id }));
@@ -198,7 +270,9 @@ export default class GifForm extends Component {
 			tagsState,
 			countries,
 			countriesState,
-			status
+			status,
+			statusState,
+			showStatusChangeForm
 		} = this.state;
 
 		const saveMessage = (
@@ -288,8 +362,75 @@ export default class GifForm extends Component {
 								}
 							</FormGroup>
 
+
+							{mode === "edit" && 
+							<Card HeaderContent={() => <p>Publish</p>} BodyContent={() => {
+								return (
+									<div className="PublishSectionContent">
+										<p className="PublishSectionContent-Status">
+											<div className="PublishSectionContent-StatusIcon">
+												{status === 'published' && 
+												<EyeIcon />
+												}
+												{status === 'draft' && 
+												<EditIcon />
+												}
+												{status === 'unpublished' && 
+												<ArchiveIcon />
+												}
+											</div>
+											<span className="PublishSectionContent-StatusLabel">Status: </span>
+											<span className="PublishSectionContent-StatusValue">{`${status.charAt(0).toUpperCase()}${status.slice(1)}`}</span>
+											{!showStatusChangeForm && 
+											<a className="PublishSectionContent-StatusChangeLink" href="" onClick={(e) => {e.preventDefault(); this.showStatusChangeForm()}}>Change</a>
+											}
+										</p>
+										{showStatusChangeForm && 
+										<div className="PublishSectionContent-StatusUpdate">
+											<FormGroup className="Form-InputGroup" validationState={statusState}>
+												<Select
+													name="form-field-name"
+													placeholder="Select status"
+													value={status}
+													onChange={this.handleStatusChange}
+													options={[
+														{
+															label: 'Published',
+															value: 'published'
+														},
+														{
+															label: 'Unpublished',
+															value: 'unpublished'
+														},
+														{
+															label: 'Draft',
+															value: 'draft'
+														},
+													]}
+													disabled={!editable}
+												/>
+												{statusState === 'error' &&
+													<HelpBlock className="ApolloLogin-FormBox-Form-InputError">Please select a status</HelpBlock>
+												}
+												<Button onClick={this.hideStatusChangeForm}>Okay</Button>
+												<Button bsStyle="link" onClick={this.discardStatusChanges}>Cancel</Button>
+											</FormGroup>
+										</div>
+										}
+									</div>
+								);
+							}} />
+							}
+
+							{mode === "edit" && 
 							<FormGroup className="Form-InputGroup" validationState={null}>
-								<ControlLabel>Ready. Set. Go</ControlLabel>
+								<ControlLabel>Review and Save.</ControlLabel>
+								<Button className="SaveChanges" block bsSize="large" bsStyle="success" onClick={this.validateForm} disabled={saving}>{saveButtonContent}</Button>
+							</FormGroup>
+							}
+							{mode === "new" && 
+							<FormGroup className="Form-InputGroup" validationState={null}>
+								<ControlLabel>Ready. Set. Go.</ControlLabel>
 								<div className="button-group-box">
 									<DropdownButton
 										bsStyle="success btn-block"
@@ -301,6 +442,21 @@ export default class GifForm extends Component {
 									</DropdownButton>
 								</div>
 							</FormGroup>
+							}
+
+							{/* <FormGroup className="Form-InputGroup" validationState={null}>
+								<ControlLabel>Ready. Set. Go</ControlLabel>
+								<div className="button-group-box">
+									<DropdownButton
+										bsStyle="success btn-block"
+										title={saveButtonContent}
+										disabled={saving}
+									>
+										<MenuItem eventKey="1" onSelect={() => this.validateForm('draft')}><LockIcon /> Save As Draft</MenuItem>
+										<MenuItem eventKey="2" onSelect={() => this.validateForm('published')}><EyeIcon /> Save and Publish</MenuItem>
+									</DropdownButton>
+								</div>
+							</FormGroup> */}
 						</Col>
 					</Row>
 				</form>

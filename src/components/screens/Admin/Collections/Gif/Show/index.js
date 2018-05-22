@@ -13,6 +13,7 @@ import {
 	MenuItem
 } from 'react-bootstrap';
 import { UpdateGifForm } from '../../../../../forms';
+import _ from 'lodash';
 
 import {
   isLoaded
@@ -30,44 +31,149 @@ class CollectionsGifNew extends Component {
 
 		this.handleSave = this.handleSave.bind(this);
 		this.saveGif = this.saveGif.bind(this);
-		this.linkGifWithTags = this.linkGifWithTags.bind(this);
+		this.updateCountryLinks = this.updateCountryLinks.bind(this);
+		this.updateTagLinks = this.updateTagLinks.bind(this);
 	}
 	
+	// saveGif(gif) {
+	// 	const { firestore } = this.props;
+	// 	return firestore.add('gifs', gif)
+	// } linkGifWithTags(gifId, tags) {
+	// 	return new Promise((resolve, reject) => {
+	// 		const { firestore } = this.props;
+
+	// 		const linkTagRequests = tags.map(tag => {
+	// 			return firestore.set(`/gifs_tags/${gifId}_${tag}`, {
+	// 				gifId,
+	// 				tagId: tag
+	// 			});
+	// 		});
+
+	// 		Promise.all(linkTagRequests)
+	// 			.then(() => {
+	// 				resolve(gifId);
+	// 			})
+	// 			.catch((error) => {
+	// 				reject(error);
+	// 			});
+	// 	});
+	// }
+
+	// linkGifWithCountries(gifId, countries) {
+	// 	const { firestore } = this.props;
+
+	// 	const linkCountryRequests = countries.map(country => {
+	// 		return firestore.set(`/gifs_countries/${gifId}_${country}`, {
+	// 			gifId,
+	// 			countryId: country
+	// 		});
+	// 	});
+
+	// 	return Promise.all(linkCountryRequests)
+	// }
+
+	// handleSave(gif) {
+	// 	const { firestore, onSave } = this.props;
+
+	// 	gif.tags = gif.tags.map(tag => tag.value);
+	// 	gif.countries = gif.countries.map(countrie => countrie.value);
+
+	// 	const { tags, countries } = gif;
+
+	// 	this.setState({ saving: true });
+	// 	this.saveGif(gif)
+	// 	.then((savedGif) => {
+	// 		const savedGifId = savedGif._key.path.segments[1]
+	// 		return this.linkGifWithTags(savedGifId, tags);
+	// 	})
+	// 	.then((savedGifId) => {
+	// 		return this.linkGifWithCountries(savedGifId, countries);
+	// 	})
+	// 	.then((result) => {
+	// 		this.setState({ saving: false });
+	// 		onSave();
+	// 	})
+	// 	.catch((error) => {
+	// 		this.setState({ saving: false });
+	// 		console.log('error saving gif:', error);
+	// 	});
+	// }
+
+
+
 	saveGif(gif) {
 		const { firestore } = this.props;
-		return firestore.add('gifs', gif)
-	} linkGifWithTags(gifId, tags) {
+		const { id } = gif;
+		delete gif[id];
+		return firestore.set(`/gifs/${gif.id}`, gif);
+	} 
+
+	updateTagLinks(gifId, newTagsList) {
 		return new Promise((resolve, reject) => {
-			const { firestore } = this.props;
+			const { firestore, gif } = this.props;
+			const { tags: oldTagsList } = gif;
 
-			const linkTagRequests = tags.map(tag => {
-				return firestore.set(`/gifs_tags/${gifId}_${tag}`, {
-					gifId,
-					tagId: tag
-				});
-			});
+			if (!_.isEqual(oldTagsList, newTagsList)) {
+				const tagLinksToRemove = _.difference(oldTagsList, newTagsList);
+				const tagLinksToAdd = _.difference(newTagsList, oldTagsList);
 
-			Promise.all(linkTagRequests)
-				.then(() => {
-					resolve(gifId);
-				})
-				.catch((error) => {
-					reject(error);
+				const removeTagLinkRequests = tagLinksToRemove.map(tag => {
+					return firestore.delete({ collection: `gifs_tags`, doc: `${gifId}_${tag}` });
 				});
+
+				const addTagLinkRequests = tagLinksToAdd.map(tag => {
+					return firestore.set(`/gifs_tags/${gifId}_${tag}`, {
+						gifId,
+						tagId: tag
+					});
+				});
+
+				const linkRequests = addTagLinkRequests.concat(removeTagLinkRequests);
+				Promise.all(linkRequests)
+					.then(() => {
+						resolve();
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			} else {
+				return resolve();
+			}
 		});
 	}
 
-	linkGifWithCountries(gifId, countries) {
-		const { firestore } = this.props;
+	updateCountryLinks(gifId, newCountriesList) {
+		return new Promise((resolve, reject) => {
+			const { firestore, gif } = this.props;
+			const { countries: oldCountriesList } = gif;
 
-		const linkCountryRequests = countries.map(country => {
-			return firestore.set(`/gifs_countries/${gifId}_${country}`, {
-				gifId,
-				countryId: country
-			});
+			if (!_.isEqual(oldCountriesList, newCountriesList)) {
+				const countryLinksToRemove = _.difference(oldCountriesList, newCountriesList);
+				const countryLinksToAdd = _.difference(newCountriesList, oldCountriesList);
+
+				const removeCountryLinkRequests = countryLinksToRemove.map(country => {
+					return firestore.delete({ collection: `gifs_countries`, doc: `${gifId}_${country}` });
+				});
+
+				const addCountryLinkRequests = countryLinksToAdd.map(country => {
+					return firestore.set(`/gifs_countries/${gifId}_${country}`, {
+						gifId,
+						countryId: country
+					});
+				});
+
+				const linkRequests = addCountryLinkRequests.concat(removeCountryLinkRequests);
+				Promise.all(linkRequests)
+					.then(() => {
+						resolve();
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			} else {
+				return resolve();
+			}
 		});
-
-		return Promise.all(linkCountryRequests)
 	}
 
 	handleSave(gif) {
@@ -79,15 +185,15 @@ class CollectionsGifNew extends Component {
 		const { tags, countries } = gif;
 
 		this.setState({ saving: true });
-		this.saveGif(gif)
-		.then((savedGif) => {
-			const savedGifId = savedGif._key.path.segments[1]
-			return this.linkGifWithTags(savedGifId, tags);
+
+		this.updateTagLinks(gif.id, tags)
+		.then(() => {
+			return this.updateCountryLinks(gif.id, countries);
 		})
-		.then((savedGifId) => {
-			return this.linkGifWithCountries(savedGifId, countries);
+		.then(() => {
+			return this.saveGif(gif)
 		})
-		.then((result) => {
+		.then(() => {
 			this.setState({ saving: false });
 			onSave();
 		})
@@ -100,7 +206,6 @@ class CollectionsGifNew extends Component {
 	render() {
 		const { saving } = this.state;
 		const { gif } = this.props;
-		console.log('>>>>>??', gif);
 
 		if (!isLoaded(gif)) {
 			return (

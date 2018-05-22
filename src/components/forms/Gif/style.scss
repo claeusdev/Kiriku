@@ -108,4 +108,56 @@
 			border-top-color: #a94442;
 		}
 	}
+  .LunaCard {
+    border: 1px solid #ccc; 
+    margin-bottom: 30px;
+    .LunaCard-Header {
+      border-bottom: 1px solid #ccc; 
+      padding: 7px 10px;
+      p { 
+        margin: 0;
+        font-weight: 700;
+        font-size: 14px;
+      }
+    }
+    .LunaCard-Body {
+      padding: 15px 10px;
+    }
+  }
+  .PublishSectionContent {
+
+  }
+  .PublishSectionContent-Status {
+    display: flex;
+    align-items: center;
+  }
+  .PublishSectionContent-StatusIcon {
+    margin-right: 10px;
+    font-size: 19px;
+    svg {
+      margin-bottom: 4px;
+    }
+  }
+  .PublishSectionContent-StatusLabel {
+    margin-right: 04px;
+  }
+  .PublishSectionContent-StatusValue {
+    font-weight: bold;
+    margin-right: 05px;
+  }
+  .PublishSectionContent-StatusChangeLink {
+    text-decoration: underline;
+  }
+  .PublishSectionContent-StatusUpdate {
+    .Select {
+      margin-bottom: 15px;
+    }
+  }
+  .SaveChanges,
+  .SaveChanges:hover {
+    height: 45px;
+    font-size: 17px;
+    background-color: #1abc9b;
+    border-color: #1abc9b;
+  }
 }
