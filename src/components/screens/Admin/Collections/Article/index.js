@@ -13,7 +13,7 @@ export default () => {
 
 			<ol role="navigation" aria-label="breadcrumbs" className="breadcrumb">
 				<li className="">
-					<Link to="/admin/collections">Collections</Link>
+					<Link to="/admin">Collections</Link>
 				</li>
 				<li className="active"><span>Article</span></li>
 			</ol>
