@@ -170,22 +170,23 @@ export default class MemeForm extends Component {
 			status,
 			statusState
 		} = this.state;
+		const { mode } = this.props;
 
-		const formHasErrors = (
+		let formHasErrors = (
 			descriptionState === 'error' ||
 			imageUrlState === 'error' ||
 			tagsState === 'error' ||
 			countriesState === 'error' ||
-			statusState === 'error'
+			(mode === 'new' ? false : statusState === 'error')
 		);
 
 		if (formHasErrors) {
 			return;
 		}
 
+		const { onSave, auth, meme } = this.props;
 		const now = new Date();
 
-		const { onSave, auth, mode, meme } = this.props;
 		const memeData = {
 			description,
 			imageUrl,
@@ -249,6 +250,7 @@ export default class MemeForm extends Component {
 		}
 
 		this.setState(newState, () => {
+			console.log('go save');
 			this.saveAs(memeStatus);
 		});
 	}
@@ -427,7 +429,7 @@ export default class MemeForm extends Component {
 							}
 							{mode === "new" && 
 							<FormGroup className="Form-InputGroup" validationState={null}>
-								<ControlLabel>Ready. Set. Go.</ControlLabel>
+								<ControlLabel>Ready. Set. Go.**</ControlLabel>
 								<div className="button-group-box">
 									<DropdownButton
 										bsStyle="success btn-block"

@@ -170,23 +170,23 @@ export default class GifForm extends Component {
 			status,
 			statusState
 		} = this.state;
+		const { mode } = this.props;
 
 		const formHasErrors = (
 			descriptionState === 'error' ||
 			imageUrlState === 'error' ||
 			tagsState === 'error' ||
 			countriesState === 'error' ||
-			statusState === 'error'
+			(mode === 'new' ? false : statusState === 'error')
 		);
 
 		if (formHasErrors) {
 			return;
 		}
 
-
 		const now = new Date();
 
-		const { onSave, auth, mode, gif } = this.props;
+		const { onSave, auth, gif } = this.props;
 		const gifData = {
 			description,
 			imageUrl,
@@ -208,8 +208,6 @@ export default class GifForm extends Component {
 			gifData['status'] = type;
 		}
 
-		// console.log('...', gifData);
-		// return;
 		onSave(gifData);
 	}
 
