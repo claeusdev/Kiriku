@@ -1,4 +1,6 @@
-.ApolloLogin {
+@import "../../../vars.scss";
+
+.KirikuLogin {
   height: 100vh;
   background-color: #000;
   background-color: #f5f5f5;
@@ -9,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  .ApolloLogin-FormBox {
+  .KirikuLogin-FormBox {
     background-color: #fff;
     // opacity: 0.6;
     flex-basis: 27%;
@@ -17,56 +19,55 @@
     border-radius: 3px;
     padding: 35px;
   }
-  .ApolloLogin-FormBox-Logo {
+  .KirikuLogin-FormBox-Logo {
     display: flex;
     justify-content: center;
     svg {
       font-size: 60px;
-      color: #1abc9b;
+      color: $primary-color;
     }
   }
-  .ApolloLogin-FormBox-Brand {
+  .KirikuLogin-FormBox-Brand {
     text-align: center;
     font-weight: 900;
     font-size: 27px;
     margin-top: 30px;
-    color: #1abc9b;
+    color: $primary-color;
   }
-  .ApolloLogin-FormBox-Form {
+  .KirikuLogin-FormBox-Form {
     margin-top: 100px;
   }
-  .ApolloLogin-FormBox-Form-LoginError {
-    color:#da1d1d ;
+  .KirikuLogin-FormBox-Form-LoginError {
+    color: #da1d1d;
     margin-bottom: 30px;
     font-size: 17px;
     text-align: center;
   }
-  .ApolloLogin-FormBox-Form-InputGroup.has-error {
+  .KirikuLogin-FormBox-Form-InputGroup.has-error {
     .ApolloLogin-FormBox-Form-Input {
-      border-color:#da1d1d ;
+      border-color: #da1d1d;
       margin-bottom: 2px;
     }
-    .ApolloLogin-FormBox-Form-InputError {
-
+    .KirikuLogin-FormBox-Form-InputError {
     }
   }
-  .ApolloLogin-FormBox-Form-Input {
-    height: 50px; 
+  .KirikuLogin-FormBox-Form-Input {
+    height: 50px;
     box-shadow: none;
     margin-bottom: 25px;
     background-color: #f5f5f5;
     border-color: #f5f5f5;
     font-size: 16px;
   }
-  .ApolloLogin-FormBox-Form-Button:hover,
-  .ApolloLogin-FormBox-Form-Button:active,
-  .ApolloLogin-FormBox-Form-Button {
-    height: 50px; 
+  .KirikuLogin-FormBox-Form-Button:hover,
+  .KirikuLogin-FormBox-Form-Button:active,
+  .KirikuLogin-FormBox-Form-Button {
+    height: 50px;
     box-shadow: none;
     margin-bottom: 25px;
     font-size: 17px;
-    background-color: #1abc9b;
-    border-color: #1abc9b;
+    background-color: $primary-color;
+    border-color: $primary-color;
     color: #fff;
   }
 }

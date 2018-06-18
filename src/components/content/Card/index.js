@@ -1,19 +1,19 @@
-import React from 'react';
-import './Card.css';
+import React from "react";
+import "./Card.css";
 
 export default ({ HeaderContent, BodyContent }) => {
   return (
     <div className="LunaCard">
-      {HeaderContent && 
+      {HeaderContent && (
         <div className="LunaCard-Header">
           <HeaderContent />
         </div>
-      }
-      {BodyContent &&
+      )}
+      {BodyContent && (
         <div className="LunaCard-Body">
           <BodyContent />
         </div>
-      }
+      )}
     </div>
   );
-}
+};

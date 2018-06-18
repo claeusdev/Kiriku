@@ -1,3 +1,4 @@
+@import "../../../../vars.scss";
 .LunaAdmin-Content-Dashboard {
   .LunaAdmin-Content-Dashboard-Greeting {
     margin: 15px 0 15px 0;
@@ -6,9 +7,6 @@
     -webkit-font-smoothing: antialiased;
   }
   .LunaAdmin-Content-Dashboard-QuickLinks {
-    .LunaCard {
-
-    }
     .LunaCard-Header,
     .LunaCard-Body {
       padding: 15px;
@@ -16,19 +14,16 @@
     .LunaCard-Header .heading {
       margin: 0;
       font-size: 15px;
-      // text-transform: uppercase;
       font-weight: bold;
     }
     .LunaAdmin-Content-Dashboard-QuickLinks-Items {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
     }
     .LunaAdmin-Content-Dashboard-QuickLinks-Item {
       text-align: center;
       padding: 15px;
       border-radius: 5px;
-      // text-transform: uppercase;
-      color: #29a5f9;
       .svg-box {
         padding: 10px;
         border-radius: 5px;
@@ -43,71 +38,49 @@
         margin: 5px 0 0 0;
       }
     }
-    .LunaAdmin-Content-Dashboard-QuickLinks-Item.meme {
-      color: #29a5f9;
-      .svg-box {
-        border: 1px solid #29a5f9;
-        background-color: #29a5f9;
-      }
-    }
-    .LunaAdmin-Content-Dashboard-QuickLinks-Item.article {
-      color: #1abc9b;
-      .svg-box {
-        border: 1px solid #1abc9b;
-        background-color: #1abc9b;
-      }
-    }
-    .LunaAdmin-Content-Dashboard-QuickLinks-Item.gif {
-      color: #ba1abc;
-      .svg-box {
-        border: 1px solid #ba1abc;
-        background-color: #ba1abc;
-      }
+  }
+  .LunaAdmin-Content-Dashboard-QuickLinks-Item.article {
+    color: $primary-color;
+    .svg-box {
+      border: 1px solid $primary-color-hovered;
+      background-color: $primary-color-hovered;
     }
   }
-  .LunaAdmin-Content-Dashboard-Collections {
-    .LunaCard {
+}
+.LunaAdmin-Content-Dashboard-Collections {
+  .LunaCard {
+  }
+  .LunaCard-Header {
+    padding: 15px;
+  }
+  .LunaCard-Header .heading {
+    margin: 0;
+    font-size: 15px;
+    // text-transform: uppercase;
+    font-weight: bold;
+  }
+  .LunaAdmin-Content-Dashboard-Collections-Items {
+    display: flex;
+  }
+  .LunaAdmin-Content-Dashboard-Collections-Item {
+    padding: 14.5px 15px;
+    border-radius: 5px;
+    color: #999;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    font-size: 15px;
 
-    }
-    .LunaCard-Header {
+    .svg-box {
       padding: 15px;
-    }
-    .LunaCard-Header .heading {
-      margin: 0;
-      font-size: 15px;
-      // text-transform: uppercase;
-      font-weight: bold;
-    }
-    .LunaAdmin-Content-Dashboard-Collections-Items {
-      display: flex;
-      flex-direction: column;
-    }
-    .LunaAdmin-Content-Dashboard-Collections-Item {
-      padding: 14.5px 15px;
       border-radius: 5px;
-      color: #999;
-      border-bottom: 1px solid rgba(0,0,0,.07);
-      font-size: 15px;
-      .svg-box {
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        display: inline-block;
-      }
-      svg {
-        font-size: 18px;
-        margin-right: 10px;
-      }
-      p {
-        margin: 5px 0 0 0;
-      }
+      margin-bottom: 10px;
+      display: inline-block;
     }
-    .LunaAdmin-Content-Dashboard-Collections-Item:last-child {
-      border-bottom-width: 0;
+    svg {
+      font-size: 18px;
+      margin-right: 10px;
     }
-    .LunaAdmin-Content-Dashboard-Collections-Item.article {
-    }
-    .LunaAdmin-Content-Dashboard-Collections-Item.gif {
+    p {
+      margin: 5px 0 0 0;
     }
   }
 }

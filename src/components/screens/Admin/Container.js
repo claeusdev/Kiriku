@@ -1,27 +1,26 @@
-import Outlet from './Outlet';
-import { connect } from 'react-redux';
-import { compose } from 'redux'
-import { push } from 'react-router-redux/actions';
-import {
-  firebaseConnect,
-} from 'react-redux-firebase'
+import Outlet from "./Outlet";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { push } from "react-router-redux/actions";
+import { firebaseConnect } from "react-redux-firebase";
 
-const mapStateToProps = (state) => {
-  const { firebase: { auth } } = state;
+const mapStateToProps = state => {
+  const {
+    firebase: { auth }
+  } = state;
   return {
     auth
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onLogin() {
-    dispatch(push('/dashboard'));
+    dispatch(push("/dashboard"));
   }
 });
 
 const Container = compose(
-  firebaseConnect([
-  ]),
+  firebaseConnect([]),
   connect(
     mapStateToProps,
     mapDispatchToProps
